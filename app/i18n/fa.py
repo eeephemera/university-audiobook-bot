@@ -45,7 +45,7 @@ FA: dict[str, str] = {
     "menu_catalog": "📚 کتاب‌ها",
     "menu_about": "ℹ️ درباره",
     "menu_language": "🌐 زبان (languages)",
-    "menu_search": "🔍 جستجو",
+    "menu_search": "🔍 جستجوی کتاب",
     "menu_home": "🏠 منو",
     "btn_back": "⬅️ بازگشت",
     "btn_chapters": "🎧 گوش دادن",

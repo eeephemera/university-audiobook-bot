@@ -46,7 +46,7 @@ RU: dict[str, str] = {
     "menu_catalog": "📚 Книги",
     "menu_about": "ℹ️ О боте",
     "menu_language": "🌐 Язык (languages)",
-    "menu_search": "🔍 Поиск",
+    "menu_search": "🔍 Поиск книги",
     "menu_home": "🏠 В меню",
     "btn_back": "⬅️ Назад",
     "btn_chapters": "🎧 Слушать",

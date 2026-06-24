@@ -45,7 +45,7 @@ EN: dict[str, str] = {
     "menu_catalog": "📚 Books",
     "menu_about": "ℹ️ About",
     "menu_language": "🌐 Language",
-    "menu_search": "🔍 Search",
+    "menu_search": "🔍 Search a book",
     "menu_home": "🏠 Menu",
     "btn_back": "⬅️ Back",
     "btn_chapters": "🎧 Listen",

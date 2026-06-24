@@ -23,7 +23,6 @@ _LANG_LABELS = {"ru": "🇷🇺 Русский", "en": "🇬🇧 English", "fa":
 def main_menu(lang: str) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     kb.button(text=t(lang, "menu_catalog"), callback_data=MenuCB(action="catalog"))
-    kb.button(text=t(lang, "menu_search"), callback_data=MenuCB(action="search"))
     kb.button(text=t(lang, "menu_about"), callback_data=MenuCB(action="about"))
     kb.button(text=t(lang, "menu_language"), callback_data=MenuCB(action="language"))
     kb.adjust(1, 2)
@@ -34,12 +33,18 @@ def catalog_keyboard(
     books: list[Book], page: int, total: int, lang: str
 ) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
+    # Book search lives here (inside "Books") so it's clearly a search for books.
+    kb.button(text=t(lang, "menu_search"), callback_data=MenuCB(action="search"))
+    kb.adjust(1)
+
+    items = InlineKeyboardBuilder()
     for book in books:
-        kb.button(
+        items.button(
             text=f"📖 {loc(book.title, lang)}",
             callback_data=BookCB(action="open", book_id=book.id, page=page),
         )
-    kb.adjust(1)
+    items.adjust(1)
+    kb.attach(items)
 
     pages = max(1, math.ceil(total / CATALOG_PAGE_SIZE))
     if pages > 1:
