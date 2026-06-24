@@ -17,7 +17,8 @@ EN: dict[str, str] = {
     "about": (
         "ℹ️ <b>{brand}</b>\n\n"
         "Listen to audiobooks and read their PDF versions right inside "
-        "Telegram — fast and simple."
+        "Telegram — fast and simple.\n\n"
+        "💬 Questions, suggestions, bugs — write to: {support}"
     ),
     "help": (
         "<b>Commands</b>\n"
@@ -45,6 +46,7 @@ EN: dict[str, str] = {
     "menu_catalog": "📚 Books",
     "menu_about": "ℹ️ About",
     "menu_language": "🌐 Language",
+    "menu_contact": "✉️ Contact",
     "menu_search": "🔍 Search a book",
     "menu_home": "🏠 Menu",
     "btn_back": "⬅️ Back",

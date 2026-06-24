@@ -18,7 +18,8 @@ RU: dict[str, str] = {
     "about": (
         "ℹ️ <b>{brand}</b>\n\n"
         "Слушайте аудиокниги и читайте их PDF-версии прямо в Telegram — "
-        "быстро и удобно."
+        "быстро и удобно.\n\n"
+        "💬 Вопросы, пожелания, ошибки — пишите: {support}"
     ),
     "help": (
         "<b>Команды</b>\n"
@@ -46,6 +47,7 @@ RU: dict[str, str] = {
     "menu_catalog": "📚 Книги",
     "menu_about": "ℹ️ О боте",
     "menu_language": "🌐 Язык (languages)",
+    "menu_contact": "✉️ Связь",
     "menu_search": "🔍 Поиск книги",
     "menu_home": "🏠 В меню",
     "btn_back": "⬅️ Назад",

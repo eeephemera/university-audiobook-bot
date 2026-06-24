@@ -31,6 +31,8 @@ class Settings(BaseSettings):
     # --- Branding / UX ---
     brand_name: str = "Audiobook Library"
     default_language: str = "ru"
+    # Telegram username users can contact for questions / bugs / suggestions.
+    support_username: str = "NAGO95"
 
     # --- Storage ---
     database_url: str = "sqlite+aiosqlite:///data/bot.db"

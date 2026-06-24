@@ -8,6 +8,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from app.callbacks import BookCB, CatalogCB, ChapterCB, LangCB, MenuCB
+from app.config import settings
 from app.db.models import Book, Chapter
 from app.i18n import SUPPORTED, loc, t
 
@@ -24,8 +25,10 @@ def main_menu(lang: str) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     kb.button(text=t(lang, "menu_catalog"), callback_data=MenuCB(action="catalog"))
     kb.button(text=t(lang, "menu_about"), callback_data=MenuCB(action="about"))
+    # Direct link to the support contact (questions / bugs / suggestions).
+    kb.button(text=t(lang, "menu_contact"), url=f"https://t.me/{settings.support_username}")
     kb.button(text=t(lang, "menu_language"), callback_data=MenuCB(action="language"))
-    kb.adjust(1, 2)
+    kb.adjust(1, 2, 1)
     return kb.as_markup()
 
 

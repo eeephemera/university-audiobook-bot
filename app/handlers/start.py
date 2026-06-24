@@ -85,7 +85,11 @@ async def go_home(callback: CallbackQuery, lang: str) -> None:
 
 @router.callback_query(MenuCB.filter(F.action == "about"))
 async def about(callback: CallbackQuery, lang: str) -> None:
-    text = t(lang, "about", brand=escape(settings.brand_name))
+    text = t(
+        lang, "about",
+        brand=escape(settings.brand_name),
+        support=f"@{settings.support_username}",
+    )
     await show_screen(callback, text, only_home(lang))
     await callback.answer()
 
