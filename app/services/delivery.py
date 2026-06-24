@@ -113,12 +113,16 @@ async def _send_with_retry(make_coro):
             raise
 
 
-def _entry_caption(book: Book, lang: str, bot_username: str) -> str:
-    """Caption for the entry track (chapter 1) — book title + brand footer."""
-    title = escape(_clip(loc(book.title, lang), _MAX_TITLE))
-    return caption_with_signature(
-        f"🎧 <b>{title}</b>", lang, bot_username, payload=f"book_{book.slug}"
-    )
+def _track_caption(book: Book, chapter: Chapter, lang: str, *, show_part: bool) -> str:
+    """Per-chapter caption for play-all so each audio is clearly labelled."""
+    if show_part:
+        head = f"🎧 <b>{t(lang, 'lbl_part')} {chapter.section} · {t(lang, 'lbl_chapter')} {chapter.number}</b>"
+    else:
+        head = f"🎧 <b>{t(lang, 'lbl_chapter')} {chapter.number}</b>"
+    ch_title = loc(chapter.title, lang)
+    if ch_title:
+        head += f" — {escape(_clip(ch_title, _MAX_CH_TITLE))}"
+    return head
 
 
 async def send_all_chapters(
@@ -153,16 +157,22 @@ async def send_all_chapters(
     entry = chapters[0]                 # chapter 1 — the tap point
     seq = list(reversed(chapters))      # send N..1 so the bottom message is ch.1
 
+    def caption_for(ch: Chapter) -> str:
+        # Every chapter is labelled; the entry (chapter 1) also carries the footer.
+        cap = _track_caption(book, ch, lang, show_part=show_part)
+        if ch is entry:
+            cap = caption_with_signature(cap, lang, me.username, payload=f"book_{book.slug}")
+        return cap
+
     sent = 0
     for start in range(0, len(seq), _GROUP_SIZE):
         group = seq[start : start + _GROUP_SIZE]
         if len(group) == 1:
             ch = group[0]
-            cap = _entry_caption(book, lang, me.username) if ch is entry else None
             await _send_with_retry(
-                lambda ch=ch, cap=cap: bot.send_audio(
+                lambda ch=ch: bot.send_audio(
                     chat_id, audio=ch.audio_file_id, title=track_title(ch),
-                    performer=performer, caption=cap, parse_mode=ParseMode.HTML,
+                    performer=performer, caption=caption_for(ch), parse_mode=ParseMode.HTML,
                     protect_content=settings.protect_content,
                 )
             )
@@ -172,7 +182,7 @@ async def send_all_chapters(
                     media=ch.audio_file_id,
                     title=track_title(ch),
                     performer=performer,
-                    caption=(_entry_caption(book, lang, me.username) if ch is entry else None),
+                    caption=caption_for(ch),
                     parse_mode=ParseMode.HTML,
                 )
                 for ch in group
