@@ -1,0 +1,26 @@
+# systemd unit for running the bot WITHOUT Docker (bare VPS + venv).
+# 1. Copy to /etc/systemd/system/university-audiobook-bot.service
+# 2. Adjust User, WorkingDirectory and the venv path below.
+# 3. sudo systemctl daemon-reload
+#    sudo systemctl enable --now university-audiobook-bot
+#    journalctl -u university-audiobook-bot -f
+
+[Unit]
+Description=University Audiobook Telegram Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+WorkingDirectory=/opt/university-audiobook-bot
+EnvironmentFile=/opt/university-audiobook-bot/.env
+ExecStart=/opt/university-audiobook-bot/.venv/bin/python -m app
+Restart=always
+RestartSec=5
+# Basic hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

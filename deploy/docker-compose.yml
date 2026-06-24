@@ -1,0 +1,23 @@
+services:
+  bot:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: university-audiobook-bot
+    container_name: university-audiobook-bot
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    volumes:
+      # Persist the SQLite database (and any imported data) on the host.
+      # NOTE: a fresh DB starts EMPTY. Seed the sample catalog once with:
+      #   docker compose -f deploy/docker-compose.yml run --rm bot python -m scripts.seed
+      # (Not auto-run on start, so production content isn't overwritten by demo data.)
+      - ../data:/app/data
+    # Long-polling needs no inbound ports. Logs go to the Docker journal:
+    #   docker compose logs -f
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

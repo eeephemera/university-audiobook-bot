@@ -1,0 +1,16 @@
+# Keep the image clean and free of secrets / local state.
+.env
+.venv/
+venv/
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+**/__pycache__/
+*.py[cod]
+.git/
+.gitignore
+.idea/
+.vscode/
+*.md
+deploy/

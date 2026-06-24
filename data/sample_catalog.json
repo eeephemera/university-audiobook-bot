@@ -1,0 +1,44 @@
+{
+  "books": [
+    {
+      "slug": "intro-economics",
+      "title": { "ru": "Введение в экономику", "en": "Introduction to Economics" },
+      "author": "J. Doe",
+      "description": {
+        "ru": "Базовый курс экономической теории для первого года обучения: спрос и предложение, рынки, деньги, макроэкономические показатели и роль государства. 15 глав в аудиоформате и полная PDF-версия.",
+        "en": "A first-year foundation course in economic theory: supply and demand, markets, money, macroeconomic indicators and the role of the state. 15 audio chapters and a full PDF."
+      },
+      "content_language": "en",
+      "sort_order": 1,
+      "is_published": true,
+      "cover_file_id": null,
+      "pdf_file_id": null,
+      "chapters": [
+        { "number": 1 }, { "number": 2 }, { "number": 3 }, { "number": 4 },
+        { "number": 5 }, { "number": 6 }, { "number": 7 }, { "number": 8 },
+        { "number": 9 }, { "number": 10 }, { "number": 11 }, { "number": 12 },
+        { "number": 13 }, { "number": 14 }, { "number": 15 }
+      ]
+    },
+    {
+      "slug": "world-history",
+      "title": { "ru": "Всемирная история", "en": "World History" },
+      "author": "A. Smith",
+      "description": {
+        "ru": "Обзорный курс всемирной истории от древних цивилизаций до современности.",
+        "en": "A survey of world history from ancient civilisations to the modern era."
+      },
+      "content_language": "en",
+      "sort_order": 2,
+      "is_published": true,
+      "cover_file_id": null,
+      "pdf_file_id": null,
+      "chapters": [
+        { "number": 1 }, { "number": 2 }, { "number": 3 }, { "number": 4 },
+        { "number": 5 }, { "number": 6 }, { "number": 7 }, { "number": 8 },
+        { "number": 9 }, { "number": 10 }, { "number": 11 }, { "number": 12 },
+        { "number": 13 }, { "number": 14 }, { "number": 15 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,587 @@
+{
+  "books": [
+    {
+      "slug": "luhuf-skorbi-kerbely",
+      "title": {
+        "ru": "Лухуф. Скорби Кербелы",
+        "en": "Al-Luhuf: The Sorrows of Karbala"
+      },
+      "author": "Сейид Ибн Тавус",
+      "description": {
+        "ru": "«Ал-Лухуф ‘аля катля ат-туфуф» Сейида Ибн Тавуса — классическое повествование о трагедии Кербелы и мученичестве Имама Хусейна (мир ему): предыстория, события дня Ашуры и то, что произошло после. Аудиоверсия в трёх частях и полный PDF.",
+        "en": "Sayyid Ibn Tawus's classic account of the tragedy of Karbala and the martyrdom of Imam Husayn (peace be upon him): the events leading up to Ashura, the day itself, and the aftermath. Audio in three parts plus the full PDF."
+      },
+      "content_language": "ru",
+      "sort_order": 1,
+      "is_published": true,
+      "sections": {
+        "1": {
+          "ru": "О том, что предшествовало Ашуре",
+          "en": "Before Ashura"
+        },
+        "2": {
+          "ru": "О сражении Кербелы",
+          "en": "The Battle of Karbala"
+        },
+        "3": {
+          "ru": "О событиях после Кербелы",
+          "en": "After Karbala"
+        }
+      },
+      "cover_file_id": "AgACAgIAAxkDAAMLajvLoXG6VFJW_fM5FS9FXxZCV_4AAvAZaxuQpNhJrNWJJ2ag6rgBAAMCAAN5AAM8BA",
+      "pdf_file_id": "BQACAgIAAxkDAAMMajvLoi-m9xsw3WHKcVSF2jtBDMEAAreqAAKQpNhJLKEBGRrtNSM8BA",
+      "pdf_file_name": "Лухуф.pdf",
+      "chapters": [
+        {
+          "section": 1,
+          "number": 1,
+          "title": {
+            "ru": "Рождение Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMNajvLoouMgMMOhhQdPaq8yjJTvDoAAriqAAKQpNhJ5JCwnQ2yUrQ8BA",
+          "duration": 70
+        },
+        {
+          "section": 1,
+          "number": 2,
+          "title": {
+            "ru": "Сон Умму ль-Фазль"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMOajvLq-g3CLD7cwnXNL47-rtOR7gAArmqAAKQpNhJK-vKlruygds8BA",
+          "duration": 0
+        },
+        {
+          "section": 1,
+          "number": 3,
+          "title": {
+            "ru": "Двенадцать ангелов"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMPajvLrK8p2BGPqHl-v-AuZoeyPD8AArqqAAKQpNhJEQXmJlaMow08BA",
+          "duration": 100
+        },
+        {
+          "section": 1,
+          "number": 4,
+          "title": {
+            "ru": "Сообщение о мученничестве Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMQajvLr9yivY7DvyiwP4L8gwIpHqIAAruqAAKQpNhJW6De-I_lMG88BA",
+          "duration": 378
+        },
+        {
+          "section": 1,
+          "number": 5,
+          "title": {
+            "ru": "Смерть Муавии и письмо Язида"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMRajvLsbGek_ty_PlIOyKNeGSkuJUAAryqAAKQpNhJq9YoXQb-r_A8BA",
+          "duration": 276
+        },
+        {
+          "section": 1,
+          "number": 6,
+          "title": {
+            "ru": "Знание Хусейна о своей гибели"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMSajvLs2CNHFRgSyxtW47JMYeZusUAAr2qAAKQpNhJdJet8UMyebA8BA",
+          "duration": 251
+        },
+        {
+          "section": 1,
+          "number": 7,
+          "title": {
+            "ru": "Исход Хусейна из Медины"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMTajvLtPhU6DZLm9xqqvAxU9PA7W0AAr6qAAKQpNhJtnIWlvn-ze88BA",
+          "duration": 114
+        },
+        {
+          "section": 1,
+          "number": 8,
+          "title": {
+            "ru": "Письмо куфийцев Хусейну"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMUajvLtlnw8FALSfKtbHZDhBqinj0AAr-qAAKQpNhJ6ebKJe-4Iok8BA",
+          "duration": 334
+        },
+        {
+          "section": 1,
+          "number": 9,
+          "title": {
+            "ru": "Отправление Муслима ибн Акиля"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMVajvLt_BPJ5cDpGTIV-jlDIPwrtQAAsCqAAKQpNhJE2xKcZgMXr88BA",
+          "duration": 61
+        },
+        {
+          "section": 1,
+          "number": 10,
+          "title": {
+            "ru": "Назначение Убейдуллаха"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMWajvLu2KxA-V7jtDrq3ujhKdBkWsAAsKqAAKQpNhJPyYS6lpCo148BA",
+          "duration": 0
+        },
+        {
+          "section": 1,
+          "number": 11,
+          "title": {
+            "ru": "Укрытие Муслима ибн Акиля"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMXajvLvV33fL3e6PQvQPBNijKsUykAAsOqAAKQpNhJuNngqrlL0jU8BA",
+          "duration": 0
+        },
+        {
+          "section": 1,
+          "number": 12,
+          "title": {
+            "ru": "Борьба Муслима ибн Акиля"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMYajvLw0fpe5Oa_96EI04nEVjF7UYAAsSqAAKQpNhJYoTt605v8lc8BA",
+          "duration": 403
+        },
+        {
+          "section": 1,
+          "number": 13,
+          "title": {
+            "ru": "Мученническая смерть Муслима и Хани"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMZajvLyybVoSnK-gdk2OaTFRcmgbkAAsWqAAKQpNhJ_HFBw0SQosI8BA",
+          "duration": 212
+        },
+        {
+          "section": 1,
+          "number": 14,
+          "title": {
+            "ru": "Исход Хусейна из Мекки"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMaajvLzWXfNgYITINe6fEtXLb4x6QAAsaqAAKQpNhJjSFP7p2S2xE8BA",
+          "duration": 133
+        },
+        {
+          "section": 1,
+          "number": 15,
+          "title": {
+            "ru": "Предупреждение о предательстве куфийцев"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMbajvLz1GP9Tc7YO5PBXlytMXadwUAAseqAAKQpNhJlLMdu8WhAAHYPAQ",
+          "duration": 263
+        },
+        {
+          "section": 1,
+          "number": 16,
+          "title": {
+            "ru": "Возражение Мухаммада Ханафии против выезда Имама"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMcajvL0NN6kQRCx_JfKrkON0qFUu0AAsiqAAKQpNhJ0sIcCyPF_oM8BA",
+          "duration": 76
+        },
+        {
+          "section": 1,
+          "number": 17,
+          "title": {
+            "ru": "Просьба ангелов о помощи Хусейну"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMdajvL0n-b71mEVPV3eex45Tm3mvAAAsmqAAKQpNhJqnLqzw0J2N48BA",
+          "duration": 243
+        },
+        {
+          "section": 1,
+          "number": 18,
+          "title": {
+            "ru": "В пути"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMeajvL09yyUGZ7mz9zmuPGcWVVPSAAAsqqAAKQpNhJijzStPouGPw8BA",
+          "duration": 128
+        },
+        {
+          "section": 1,
+          "number": 19,
+          "title": {
+            "ru": "Встреча Хусейна с Абахирра"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMfajvL1QZ_DT6QK_8oEigbpIV7qGwAAsuqAAKQpNhJFpYBQ75DqPg8BA",
+          "duration": 78
+        },
+        {
+          "section": 1,
+          "number": 20,
+          "title": {
+            "ru": "Приход Зухейра ибн Кейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMgajvL1z8xlJ9HCrhGtsOGt6AIe64AAsyqAAKQpNhJkwys3YmbZm08BA",
+          "duration": 278
+        },
+        {
+          "section": 1,
+          "number": 21,
+          "title": {
+            "ru": "Гибель Кейса ибн Мусхира"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMhajvL2Dj9md6o7aKHRzdDu098pjoAAs2qAAKQpNhJ3RPTisT9s-U8BA",
+          "duration": 182
+        },
+        {
+          "section": 1,
+          "number": 22,
+          "title": {
+            "ru": "Встреча Хусейна с Хурром"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMiajvL2hYSk18IAAFiKhO9_O_6UJH-AALOqgACkKTYSdvoiVn7FSy4PAQ",
+          "duration": 269
+        },
+        {
+          "section": 1,
+          "number": 23,
+          "title": {
+            "ru": "Прибытие Хусейна в Кербелу"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMjajvL24wkJ_uK9qoliugePTDXtFkAAtCqAAKQpNhJIlOa5lhyqoI8BA",
+          "duration": 119
+        },
+        {
+          "section": 1,
+          "number": 24,
+          "title": {
+            "ru": "Горе Зейнаб"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMkajvL3Wnj904DUigkyZWEUkDkYMUAAtGqAAKQpNhJjrjH6arz1NA8BA",
+          "duration": 204
+        },
+        {
+          "section": 2,
+          "number": 1,
+          "title": {
+            "ru": "Войско для сражения с Хусейном"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMlajvL4hIBIZzQF2qyHll8Da7Y4K8AAtKqAAKQpNhJzfi8oshggC48BA",
+          "duration": 65
+        },
+        {
+          "section": 2,
+          "number": 2,
+          "title": {
+            "ru": "Первая речь Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMmajvL5SE36OYOVgGE0NYVE_cXKjUAAtSqAAKQpNhJcTBMaGB8D8Q8BA",
+          "duration": 192
+        },
+        {
+          "section": 2,
+          "number": 3,
+          "title": {
+            "ru": "Безопасность для Аббаса и его братьев"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMnajvL6Sg4pXOJlc_nGc_8qPcQuAUAAtWqAAKQpNhJkEgDTcWnN3Q8BA",
+          "duration": 193
+        },
+        {
+          "section": 2,
+          "number": 5,
+          "title": {
+            "ru": "Утро Ашура"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMoajvL63XydzFMWslhLk4QHxgQ_Q0AAtaqAAKQpNhJ_m1ARpTyaqI8BA",
+          "duration": 333
+        },
+        {
+          "section": 2,
+          "number": 6,
+          "title": {
+            "ru": "Умар ибн Саад начинает бой"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMpajvL7fv9-zBkwOqB0aTUfLf6BFIAAteqAAKQpNhJ8OomAdMWCW08BA",
+          "duration": 141
+        },
+        {
+          "section": 2,
+          "number": 7,
+          "title": {
+            "ru": "Хурр переходит на сторону Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMqajvL7s4ttOw2g68rDETQ3u3C6wwAAtiqAAKQpNhJfMV49FxZNhY8BA",
+          "duration": 184
+        },
+        {
+          "section": 2,
+          "number": 8,
+          "title": {
+            "ru": "Гибель других сподвижников Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMrajvL8D33cCbZFN2_0yP_nzx0_rcAAtmqAAKQpNhJgD7-zn_KoXo8BA",
+          "duration": 264
+        },
+        {
+          "section": 2,
+          "number": 9,
+          "title": {
+            "ru": "Сражение чернокожего слуги"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMsajvL84NJOvPrTcxuh4pwppRj7UAAAtuqAAKQpNhJ8Ea0F-18cRI8BA",
+          "duration": 173
+        },
+        {
+          "section": 2,
+          "number": 10,
+          "title": {
+            "ru": "Полуденный намаз в день Ашуры"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMtajvL9ea8j8Nx_SsWv-FznWqeYTAAAtyqAAKQpNhJ1qBpnb3CU5o8BA",
+          "duration": 140
+        },
+        {
+          "section": 2,
+          "number": 11,
+          "title": {
+            "ru": "Гибель Али-Акбара"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMuajvL9rAu6H7F-FhtVNCq43LQ25sAAt2qAAKQpNhJ6FakBTWCclg8BA",
+          "duration": 210
+        },
+        {
+          "section": 2,
+          "number": 13,
+          "title": {
+            "ru": "Гибель Али-Аскара"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMvajvL96IAAYP2BY1eGwooSbz06c8LAALeqgACkKTYSZXmfWsHOzAnPAQ",
+          "duration": 66
+        },
+        {
+          "section": 2,
+          "number": 15,
+          "title": {
+            "ru": "Имам Хусейн выходит на поле боя"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMwajvL-clzp58JZuqTG8G1aECXS4oAAt-qAAKQpNhJ_1ir3VGQOZU8BA",
+          "duration": 221
+        },
+        {
+          "section": 2,
+          "number": 17,
+          "title": {
+            "ru": "Убийство Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMxajvL-skhmm46vOiEXAt-lM9uYzcAAuCqAAKQpNhJ26cXHxYb7x88BA",
+          "duration": 330
+        },
+        {
+          "section": 2,
+          "number": 18,
+          "title": {
+            "ru": "Последние мгновения"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMyajvL_MdzfqRLHAikv-lkrFJpj-8AAuGqAAKQpNhJm9eFuUqITlk8BA",
+          "duration": 99
+        },
+        {
+          "section": 2,
+          "number": 21,
+          "title": {
+            "ru": "Зейнаб возле тела ее брата"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAMzajvL_gW_pj4Z2ilLJdrgwgKECuMAAuKqAAKQpNhJK4yIcIZ-XMM8BA",
+          "duration": 226
+        },
+        {
+          "section": 2,
+          "number": 22,
+          "title": {
+            "ru": "Сон участника убийства Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM0ajvMDonQO6DtWZ98zNpV1VjWLigAAuOqAAKQpNhJRtXcKJDDot48BA",
+          "duration": 133
+        },
+        {
+          "section": 2,
+          "number": 23,
+          "title": {
+            "ru": "Наказание убийц Хусейна в день суда"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM1ajvMD2rYVLFbpm7nrTlPxI51gEMAAuSqAAKQpNhJexKROenCSjo8BA",
+          "duration": 252
+        },
+        {
+          "section": 3,
+          "number": 1,
+          "title": {
+            "ru": "Головы погибших отправляют в Куфу"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM2ajvMEd12gPIdG3G4EabbjYApFaMAAuWqAAKQpNhJDamcBPtwO8w8BA",
+          "duration": 135
+        },
+        {
+          "section": 3,
+          "number": 2,
+          "title": {
+            "ru": "Вступление пленных в Куфу"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM3ajvMEh_I_7uOHiZOPX9EEcEAAarJAALmqgACkKTYSZJ8vQbzU5o7PAQ",
+          "duration": 124
+        },
+        {
+          "section": 3,
+          "number": 3,
+          "title": {
+            "ru": "Речь Зейнаб"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM4ajvME-gHt8jN3ezvnEU1P7efKC4AAueqAAKQpNhJz-RXpp9Ejj48BA",
+          "duration": 247
+        },
+        {
+          "section": 3,
+          "number": 4,
+          "title": {
+            "ru": "Речь Фатимы Сугры, дочери Имама Хусейна"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM5ajvMFeiINnkxTTpvTi8DeHbniCsAAuiqAAKQpNhJi8qUmiiQCTc8BA",
+          "duration": 413
+        },
+        {
+          "section": 3,
+          "number": 6,
+          "title": {
+            "ru": "Речь Имама Саджада"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM6ajvMFz2I6e04VrOffIyB-8rKIIQAAumqAAKQpNhJZibXf9-P0LA8BA",
+          "duration": 238
+        },
+        {
+          "section": 3,
+          "number": 7,
+          "title": {
+            "ru": "Вход во дворец Ибн Зияда"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM7ajvMGcBb3xn44CmVI2MlsHaHSPAAAuqqAAKQpNhJg9W7xmCNqH48BA",
+          "duration": 267
+        },
+        {
+          "section": 3,
+          "number": 8,
+          "title": {
+            "ru": "Мужество Абдуллаха ибн Афифа Азади"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM8ajvMGoh6i2DqlxOhDATRiqZrzPkAAuuqAAKQpNhJQomQtJW5G108BA",
+          "duration": 411
+        },
+        {
+          "section": 3,
+          "number": 9,
+          "title": {
+            "ru": "Из Куфы в Шам"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM9ajvMHMex-03r6I4RgrbcgX0hz9AAAuyqAAKQpNhJ3AUlY1GhnWA8BA",
+          "duration": 224
+        },
+        {
+          "section": 3,
+          "number": 10,
+          "title": {
+            "ru": "Вступление голов и женщин в Шам"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM-ajvMLRA5s5Eguxo4V7B8I2mx76QAAu2qAAKQpNhJgOiMTBGcnbI8BA",
+          "duration": 96
+        },
+        {
+          "section": 3,
+          "number": 11,
+          "title": {
+            "ru": "История одного сирийского шейха"
+          },
+          "audio_file_id": "CQACAgIAAxkDAAM_ajvML2uPWl5__X2KYg5CBpyEJbkAAu6qAAKQpNhJg9_nUkzukkY8BA",
+          "duration": 196
+        },
+        {
+          "section": 3,
+          "number": 12,
+          "title": {
+            "ru": "Во дворце Язида"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANAajvMMtUXGv2kXubtT2jjXDzMrNsAAu-qAAKQpNhJTPWYc9lqTqw8BA",
+          "duration": 212
+        },
+        {
+          "section": 3,
+          "number": 13,
+          "title": {
+            "ru": "Речь Зейнаб"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANBajvMNKW_iL-xvfnkd9WXfPiXQ94AAvCqAAKQpNhJklqz0wABH_XQPAQ",
+          "duration": 432
+        },
+        {
+          "section": 3,
+          "number": 14,
+          "title": {
+            "ru": "Сириец и собрание Язида"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANCajvMNaFZPHljgaiT3nHRNGhBktUAAvGqAAKQpNhJegTnWI0_B_48BA",
+          "duration": 143
+        },
+        {
+          "section": 3,
+          "number": 15,
+          "title": {
+            "ru": "Сон Сакины"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANDajvMN5rMj_Msgiox7Zymk_iaWfsAAvKqAAKQpNhJljuItoAImN48BA",
+          "duration": 110
+        },
+        {
+          "section": 3,
+          "number": 16,
+          "title": {
+            "ru": "Посол Византии и его разговор с Язидом"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANEajvMOKRie3huedYgCSdk3cXqlZ4AAvOqAAKQpNhJrV6ASQvaw0k8BA",
+          "duration": 259
+        },
+        {
+          "section": 3,
+          "number": 17,
+          "title": {
+            "ru": "История Минхаля"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANFajvMOib52e8YXRdK3KQzmowdOxgAAvSqAAKQpNhJVX_z9WWdgjU8BA",
+          "duration": 254
+        },
+        {
+          "section": 3,
+          "number": 18,
+          "title": {
+            "ru": "Ахлю-ль-Бейт в Кербеле"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANGajvMO3DVuEgaAV4rUsxYypm3IJAAAvWqAAKQpNhJKaQPaZRQWAo8BA",
+          "duration": 91
+        },
+        {
+          "section": 3,
+          "number": 19,
+          "title": {
+            "ru": "Приближение к Медине"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANHajvMP_0P4lW86KvCqrxMAxCZ17cAAvaqAAKQpNhJIoVP1kYx8cs8BA",
+          "duration": 176
+        },
+        {
+          "section": 3,
+          "number": 20,
+          "title": {
+            "ru": "Речь Имама Саджада возле Медины"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANIajvMRtDVVTrd_EkOHy6f3Pv9az0AAveqAAKQpNhJXSq2ZaAew5c8BA",
+          "duration": 212
+        },
+        {
+          "section": 3,
+          "number": 21,
+          "title": {
+            "ru": "Дома и жилища Медины"
+          },
+          "audio_file_id": "CQACAgIAAxkDAANJajvMSqALlH15SrK1gtQojExivBoAAviqAAKQpNhJoP9XSoRPjcI8BA",
+          "duration": 182
+        }
+      ]
+    }
+  ]
+}
