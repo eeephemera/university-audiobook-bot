@@ -72,6 +72,11 @@ async def help_cmd(message: Message, bot: Bot, lang: str) -> None:
     await message.answer(t(lang, "help", bot=me.username), reply_markup=main_menu(lang))
 
 
+@router.message(Command("language"))
+async def language_cmd(message: Message, lang: str) -> None:
+    await message.answer(t(lang, "language_choose"), reply_markup=language_keyboard())
+
+
 @router.callback_query(MenuCB.filter(F.action == "home"))
 async def go_home(callback: CallbackQuery, lang: str) -> None:
     await show_screen(callback, _welcome_text(lang), main_menu(lang))
