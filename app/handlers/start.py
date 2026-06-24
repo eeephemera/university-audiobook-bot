@@ -28,12 +28,14 @@ async def _send_book_card(
     bot: Bot,
     catalog: CatalogService,
     book,
+    user,
     lang: str,
 ) -> None:
     me = await bot.me()
     ready = await catalog.ready_count(book.id)
     sections = await catalog.sections_present(book.id)
-    text, kb = book_card(book, ready, sections, 0, lang, me.username)
+    bookmark = await catalog.bookmark(user.id, book.id) if user else None
+    text, kb = book_card(book, ready, bookmark, sections, 0, lang, me.username)
     if book.cover_file_id:
         await message.answer_photo(book.cover_file_id, caption=text, reply_markup=kb)
     else:
@@ -46,6 +48,7 @@ async def start_deeplink(
     command: CommandObject,
     bot: Bot,
     catalog: CatalogService,
+    user,
     lang: str,
 ) -> None:
     """Handle t.me/<bot>?start=book_<slug> — open the shared book directly."""
@@ -53,7 +56,7 @@ async def start_deeplink(
     if payload.startswith("book_"):
         book = await catalog.get_book_by_slug(payload[len("book_"):])
         if book and book.is_published:
-            await _send_book_card(message, bot, catalog, book, lang)
+            await _send_book_card(message, bot, catalog, book, user, lang)
             return
     await message.answer(_welcome_text(lang), reply_markup=main_menu(lang))
 

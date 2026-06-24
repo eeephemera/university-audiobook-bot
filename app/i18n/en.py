@@ -55,7 +55,7 @@ EN: dict[str, str] = {
     "btn_open_part": "📃 Open the part",
     "btn_choose_part": "📚 Choose a part",
     "btn_pdf": "📄 Download PDF",
-    "btn_continue": "▶️ Continue from chapter {n}",
+    "btn_continue": "▶️ Continue — chapter {n}",
     "btn_prev": "⬅️ Prev",
     "btn_next": "Next ➡️",
     "btn_to_chapters": "📃 Chapter list",

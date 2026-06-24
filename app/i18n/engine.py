@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from app.config import settings
 from app.i18n.en import EN
+from app.i18n.fa import FA
 from app.i18n.ru import RU
 
-TRANSLATIONS: dict[str, dict[str, str]] = {"ru": RU, "en": EN}
+TRANSLATIONS: dict[str, dict[str, str]] = {"ru": RU, "en": EN, "fa": FA}
 SUPPORTED: tuple[str, ...] = tuple(TRANSLATIONS.keys())
 
 

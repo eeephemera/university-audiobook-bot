@@ -52,6 +52,7 @@ async def open_book(
     callback_data: BookCB,
     bot: Bot,
     catalog: CatalogService,
+    user,
     lang: str,
 ) -> None:
     book = await catalog.get_book(callback_data.book_id)
@@ -61,7 +62,8 @@ async def open_book(
     me = await bot.me()
     ready = await catalog.ready_count(book.id)
     sections = await catalog.sections_present(book.id)
-    text, kb = book_card(book, ready, sections, callback_data.page, lang, me.username)
+    bookmark = await catalog.bookmark(user.id, book.id) if user else None
+    text, kb = book_card(book, ready, bookmark, sections, callback_data.page, lang, me.username)
     if book.cover_file_id:
         await show_photo_screen(callback, book.cover_file_id, text, kb)
     else:

@@ -22,6 +22,7 @@ from app.config import settings
 from app.db.models import Book, Chapter
 from app.formatting import caption_with_signature
 from app.i18n import loc, t
+from app.keyboards.inline import chapter_nav_keyboard
 
 # Bound the unbounded (JSON) fields so the assembled caption + footer always
 # stays well under Telegram's 1024-char caption limit. We clip the RAW text
@@ -34,6 +35,53 @@ _MAX_CH_TITLE = 200
 def _clip(text: str, limit: int) -> str:
     text = text.strip()
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
+def _chapter_caption(
+    book: Book, chapter: Chapter, lang: str, *, show_part: bool, part_title: str
+) -> str:
+    title = escape(_clip(loc(book.title, lang), _MAX_TITLE))
+    lines = [f"🎧 <b>{title}</b>"]
+    if book.author:
+        lines.append(f"<i>{t(lang, 'lbl_author')}: {escape(_clip(book.author, _MAX_AUTHOR))}</i>")
+    if show_part:
+        pl = f"<i>{t(lang, 'lbl_part')} {chapter.section}"
+        if part_title:
+            pl += f": {escape(_clip(part_title, _MAX_TITLE))}"
+        pl += "</i>"
+        lines.append(pl)
+    line = f"📖 <b>{t(lang, 'lbl_chapter')} {chapter.number}</b>"
+    ch_title = loc(chapter.title, lang)
+    if ch_title:
+        line += f" — {escape(_clip(ch_title, _MAX_CH_TITLE))}"
+    lines.append(line)
+    return "\n".join(lines)
+
+
+async def send_chapter(
+    bot: Bot,
+    chat_id: int,
+    book: Book,
+    chapter: Chapter,
+    lang: str,
+    *,
+    ordered_ready: list[tuple[int, int]],
+    show_part: bool = False,
+    part_title: str = "",
+) -> Message:
+    """Send one chapter as audio, with prev/next nav (reliable sequential play)."""
+    me = await bot.me()
+    caption = _chapter_caption(book, chapter, lang, show_part=show_part, part_title=part_title)
+    caption = caption_with_signature(caption, lang, me.username, payload=f"book_{book.slug}")
+    nav = chapter_nav_keyboard(book.id, (chapter.section, chapter.number), ordered_ready, lang)
+    return await bot.send_audio(
+        chat_id,
+        audio=chapter.audio_file_id,
+        caption=caption,
+        parse_mode=ParseMode.HTML,
+        reply_markup=nav,
+        protect_content=settings.protect_content,
+    )
 
 
 def _pdf_caption(book: Book, lang: str) -> str:

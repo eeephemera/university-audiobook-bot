@@ -29,6 +29,7 @@ def _clip(text: str, limit: int) -> str:
 def book_card(
     book: Book,
     ready_count: int,
+    bookmark: tuple[int, int] | None,
     sections: list[int],
     page: int,
     lang: str,
@@ -54,6 +55,7 @@ def book_card(
         "\n".join(parts), lang, bot_username, payload=f"book_{book.slug}"
     )
     keyboard = book_keyboard(
-        book, page, ready_count=ready_count, sections=sections, lang=lang
+        book, page, ready_count=ready_count, bookmark=bookmark,
+        sections=sections, lang=lang,
     )
     return text, keyboard

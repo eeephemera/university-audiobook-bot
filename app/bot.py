@@ -34,6 +34,12 @@ _COMMANDS = {
         BotCommand(command="language", description="Сменить язык"),
         BotCommand(command="help", description="Помощь"),
     ],
+    "fa": [
+        BotCommand(command="start", description="منوی اصلی"),
+        BotCommand(command="catalog", description="کتاب‌ها"),
+        BotCommand(command="language", description="تغییر زبان"),
+        BotCommand(command="help", description="راهنما"),
+    ],
 }
 
 
@@ -64,6 +70,9 @@ async def _set_commands(bot: Bot) -> None:
     await bot.set_my_commands(_COMMANDS["en"], scope=BotCommandScopeDefault())
     await bot.set_my_commands(
         _COMMANDS["ru"], scope=BotCommandScopeDefault(), language_code="ru"
+    )
+    await bot.set_my_commands(
+        _COMMANDS["fa"], scope=BotCommandScopeDefault(), language_code="fa"
     )
 
 

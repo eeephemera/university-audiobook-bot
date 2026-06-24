@@ -1,8 +1,8 @@
-"""Parts selection + play-all.
+"""Chapters grid (all parts on one screen) + single-chapter playback + play-all.
 
-Flow is deliberately minimal — no per-chapter picking:
-  • multi-part book: tap "Listen" -> choose a part -> that part's audio drops in
-  • single-part book: tap "Listen" -> the audio drops in straight away
+Tapping "Listen" opens one screen with every part as a header and its chapters
+as number buttons. Tapping a chapter plays it with reliable Prev/Next nav
+(works the same on every client, unlike Telegram's album auto-advance).
 """
 
 from __future__ import annotations
@@ -17,21 +17,86 @@ from aiogram.types import CallbackQuery
 from app.callbacks import ChapterCB
 from app.handlers._helpers import show_screen
 from app.i18n import loc, t
-from app.keyboards.inline import parts_keyboard, playall_done_keyboard
+from app.keyboards.inline import chapters_overview_keyboard, playall_done_keyboard
 from app.services import CatalogService
-from app.services.delivery import send_all_chapters
+from app.services.delivery import send_all_chapters, send_chapter
 
 router = Router(name="chapter")
 log = logging.getLogger(__name__)
 
-# Strong refs to in-flight background senders so the event loop's GC can't
-# cancel a task mid-run (asyncio only holds weak refs to tasks).
+# Strong refs to in-flight background senders so the loop's GC can't cancel them.
 _background_tasks: set[asyncio.Task] = set()
 
 
+def _part_title(book, section: int, lang: str) -> str:
+    return loc((book.sections or {}).get(str(section)), lang)
+
+
+@router.callback_query(ChapterCB.filter(F.action == "list"))
+async def list_chapters(
+    callback: CallbackQuery,
+    callback_data: ChapterCB,
+    catalog: CatalogService,
+    user,
+    lang: str,
+) -> None:
+    book = await catalog.get_book(callback_data.book_id)
+    if book is None:
+        await callback.answer(t(lang, "alert_not_found"), show_alert=True)
+        return
+    chapters = await catalog.chapters_of(book.id)
+    if not any(c.is_ready for c in chapters):
+        await callback.answer(t(lang, "alert_not_ready"), show_alert=True)
+        return
+
+    listened = await catalog.listened(user.id, book.id) if user else set()
+    title = t(lang, "chapters_title", book=escape(loc(book.title, lang)))
+    text = f"{title}\n\n<i>{t(lang, 'chapters_hint')}</i>"
+    kb = chapters_overview_keyboard(book, chapters, listened, callback_data.page, lang)
+    await show_screen(callback, text, kb)
+    await callback.answer()
+
+
+@router.callback_query(ChapterCB.filter(F.action == "play"))
+async def play_chapter(
+    callback: CallbackQuery,
+    callback_data: ChapterCB,
+    bot: Bot,
+    catalog: CatalogService,
+    user,
+    lang: str,
+) -> None:
+    book = await catalog.get_book(callback_data.book_id)
+    if book is None:
+        await callback.answer(t(lang, "alert_not_found"), show_alert=True)
+        return
+    chapters = await catalog.chapters_of(book.id)
+    chapter = next(
+        (c for c in chapters if c.section == callback_data.section and c.number == callback_data.number),
+        None,
+    )
+    if chapter is None or not chapter.is_ready:
+        await callback.answer(t(lang, "alert_not_ready"), show_alert=True)
+        return
+
+    show_part = len(await catalog.sections_present(book.id)) > 1
+    ordered_ready = [(c.section, c.number) for c in chapters if c.is_ready]
+    await send_chapter(
+        bot,
+        callback.message.chat.id,
+        book,
+        chapter,
+        lang,
+        ordered_ready=ordered_ready,
+        show_part=show_part,
+        part_title=_part_title(book, chapter.section, lang) if show_part else "",
+    )
+    if user is not None:
+        await catalog.save_progress(user.id, book.id, chapter.section, chapter.number)
+    await callback.answer()
+
+
 async def _deliver_sequence(bot, chat_id, book, chapters, lang, show_part, done_kb) -> None:
-    """Background sender: stream the chapter albums, then confirm with a button.
-    Errors are logged, never raised as a task error."""
     try:
         sent = await send_all_chapters(bot, chat_id, book, chapters, lang, show_part=show_part)
         await bot.send_message(chat_id, t(lang, "playall_done", n=sent), reply_markup=done_kb)
@@ -41,56 +106,6 @@ async def _deliver_sequence(bot, chat_id, book, chapters, lang, show_part, done_
             await bot.send_message(chat_id, t(lang, "playall_error"))
         except Exception:  # noqa: BLE001
             pass
-
-
-async def _start_playall(
-    callback: CallbackQuery,
-    bot: Bot,
-    catalog: CatalogService,
-    lang: str,
-    book,
-    section: int,
-) -> None:
-    """Queue a whole part's audio (in order) and confirm via a background task."""
-    chapters = [c for c in await catalog.chapters_of(book.id) if c.section == section]
-    ready = [c for c in chapters if c.is_ready]
-    if not ready:
-        await callback.answer(t(lang, "alert_not_ready"), show_alert=True)
-        return
-
-    show_part = len(await catalog.sections_present(book.id)) > 1
-    await callback.answer(t(lang, "playall_sending"))  # toast, no chat message
-    done_kb = playall_done_keyboard(book.id, lang)
-    task = asyncio.create_task(
-        _deliver_sequence(
-            bot, callback.message.chat.id, book, ready, lang, show_part, done_kb
-        )
-    )
-    _background_tasks.add(task)
-    task.add_done_callback(_background_tasks.discard)
-
-
-@router.callback_query(ChapterCB.filter(F.action == "parts"))
-async def list_parts(
-    callback: CallbackQuery,
-    callback_data: ChapterCB,
-    bot: Bot,
-    catalog: CatalogService,
-    lang: str,
-) -> None:
-    book = await catalog.get_book(callback_data.book_id)
-    if book is None:
-        await callback.answer(t(lang, "alert_not_found"), show_alert=True)
-        return
-
-    sections = await catalog.sections_present(book.id)
-    if len(sections) <= 1:  # nothing to choose -> just play it
-        await _start_playall(callback, bot, catalog, lang, book, sections[0] if sections else 1)
-        return
-
-    text = t(lang, "parts_title", book=escape(loc(book.title, lang)))
-    await show_screen(callback, text, parts_keyboard(book, sections, callback_data.page, lang))
-    await callback.answer()
 
 
 @router.callback_query(ChapterCB.filter(F.action == "playall"))
@@ -105,4 +120,20 @@ async def play_all(
     if book is None:
         await callback.answer(t(lang, "alert_not_found"), show_alert=True)
         return
-    await _start_playall(callback, bot, catalog, lang, book, callback_data.section)
+
+    chapters = await catalog.chapters_of(book.id)
+    if callback_data.section:  # 0 == whole book
+        chapters = [c for c in chapters if c.section == callback_data.section]
+    ready = [c for c in chapters if c.is_ready]
+    if not ready:
+        await callback.answer(t(lang, "alert_not_ready"), show_alert=True)
+        return
+
+    show_part = len(await catalog.sections_present(book.id)) > 1
+    await callback.answer(t(lang, "playall_sending"))
+    done_kb = playall_done_keyboard(book.id, lang)
+    task = asyncio.create_task(
+        _deliver_sequence(bot, callback.message.chat.id, book, ready, lang, show_part, done_kb)
+    )
+    _background_tasks.add(task)
+    task.add_done_callback(_background_tasks.discard)

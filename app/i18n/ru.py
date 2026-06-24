@@ -56,7 +56,7 @@ RU: dict[str, str] = {
     "btn_open_part": "📃 Открыть часть",
     "btn_choose_part": "📚 Выбрать часть",
     "btn_pdf": "📄 Скачать PDF",
-    "btn_continue": "▶️ Продолжить с главы {n}",
+    "btn_continue": "▶️ Продолжить — глава {n}",
     "btn_prev": "⬅️ Пред.",
     "btn_next": "След. ➡️",
     "btn_to_chapters": "📃 К списку глав",
