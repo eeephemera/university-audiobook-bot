@@ -14,6 +14,17 @@ from app.formatting import with_signature
 from app.i18n import loc, t
 from app.keyboards.inline import book_keyboard
 
+# The card doubles as a photo caption when the book has a cover, so keep the
+# whole thing comfortably under Telegram's 1024-char caption limit.
+_MAX_TITLE = 120
+_MAX_AUTHOR = 80
+_MAX_DESCRIPTION = 500
+
+
+def _clip(text: str, limit: int) -> str:
+    text = text.strip()
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
 
 def book_card(
     book: Book,
@@ -27,14 +38,14 @@ def book_card(
 
     The signature footer is included so a forwarded card still points home.
     """
-    parts = [f"📖 <b>{escape(loc(book.title, lang))}</b>"]
+    parts = [f"📖 <b>{escape(_clip(loc(book.title, lang), _MAX_TITLE))}</b>"]
     if book.author:
-        parts.append(f"<i>{t(lang, 'lbl_author')}: {escape(book.author)}</i>")
+        parts.append(f"<i>{t(lang, 'lbl_author')}: {escape(_clip(book.author, _MAX_AUTHOR))}</i>")
 
     description = loc(book.description, lang)
     if description:
         # Plain (non-collapsing) blockquote so the synopsis is readable at once.
-        parts.append(f"\n<blockquote>{escape(description)}</blockquote>")
+        parts.append(f"\n<blockquote>{escape(_clip(description, _MAX_DESCRIPTION))}</blockquote>")
 
     if ready_count == 0:
         parts.append(f"\n{t(lang, 'coming_soon')}")

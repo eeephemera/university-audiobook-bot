@@ -7,7 +7,7 @@ from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
 
 from app.callbacks import BookCB, CatalogCB, MenuCB
-from app.handlers._helpers import show_screen
+from app.handlers._helpers import show_photo_screen, show_screen
 from app.i18n import t
 from app.keyboards.inline import catalog_keyboard, only_home
 from app.services import CatalogService
@@ -62,7 +62,10 @@ async def open_book(
     ready = await catalog.ready_count(book.id)
     sections = await catalog.sections_present(book.id)
     text, kb = book_card(book, ready, sections, callback_data.page, lang, me.username)
-    await show_screen(callback, text, kb)
+    if book.cover_file_id:
+        await show_photo_screen(callback, book.cover_file_id, text, kb)
+    else:
+        await show_screen(callback, text, kb)
     await callback.answer()
 
 

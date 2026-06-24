@@ -34,7 +34,10 @@ async def _send_book_card(
     ready = await catalog.ready_count(book.id)
     sections = await catalog.sections_present(book.id)
     text, kb = book_card(book, ready, sections, 0, lang, me.username)
-    await message.answer(text, reply_markup=kb)
+    if book.cover_file_id:
+        await message.answer_photo(book.cover_file_id, caption=text, reply_markup=kb)
+    else:
+        await message.answer(text, reply_markup=kb)
 
 
 @router.message(CommandStart(deep_link=True))
