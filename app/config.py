@@ -42,6 +42,11 @@ class Settings(BaseSettings):
     media_chat_id: int | None = None
     media_root: str = "media"
 
+    # --- Networking ---
+    # Optional proxy for reaching api.telegram.org (e.g. when Telegram is blocked).
+    # Full URL with scheme: http://user:pass@host:port or socks5://user:pass@host:port
+    telegram_proxy: str | None = None
+
     # --- Behaviour flags ---
     use_rich_messages: bool = False
     protect_content: bool = False

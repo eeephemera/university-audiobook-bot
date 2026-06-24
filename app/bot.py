@@ -6,6 +6,7 @@ import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
+from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import BotCommand, BotCommandScopeDefault
@@ -37,8 +38,13 @@ _COMMANDS = {
 
 
 def create_bot() -> Bot:
+    # Route Telegram traffic through a proxy when configured (e.g. RF blocking).
+    session = AiohttpSession(proxy=settings.telegram_proxy) if settings.telegram_proxy else None
+    if session is not None:
+        log.info("Using Telegram proxy")
     return Bot(
         token=settings.bot_token,
+        session=session,
         default=DefaultBotProperties(
             parse_mode=ParseMode.HTML,
             link_preview_is_disabled=True,
