@@ -4,12 +4,18 @@
       "slug": "luhuf-skorbi-kerbely",
       "title": {
         "ru": "Лухуф. Скорби Кербелы",
-        "en": "Al-Luhuf: The Sorrows of Karbala"
+        "en": "Al-Luhuf: The Sorrows of Karbala",
+        "fa": "لهوف — سوگ‌های کربلا"
       },
-      "author": "Сейид Ибн Тавус",
+      "author": {
+        "ru": "Сейид Ибн Тавус",
+        "en": "Sayyid Ibn Tawus",
+        "fa": "سید بن طاووس"
+      },
       "description": {
         "ru": "«Ал-Лухуф ‘аля катля ат-туфуф» Сейида Ибн Тавуса — классическое повествование о трагедии Кербелы и мученичестве Имама Хусейна (мир ему): предыстория, события дня Ашуры и то, что произошло после. Аудиоверсия в трёх частях и полный PDF.",
-        "en": "Sayyid Ibn Tawus's classic account of the tragedy of Karbala and the martyrdom of Imam Husayn (peace be upon him): the events leading up to Ashura, the day itself, and the aftermath. Audio in three parts plus the full PDF."
+        "en": "Sayyid Ibn Tawus's classic account of the tragedy of Karbala and the martyrdom of Imam Husayn (peace be upon him): the events leading up to Ashura, the day itself, and the aftermath. Audio in three parts plus the full PDF.",
+        "fa": "روایت کلاسیک سید بن طاووس از تراژدی کربلا و شهادت امام حسین (ع): زمینه‌ها، رویدادهای روز عاشورا و آنچه پس از آن رخ داد. نسخهٔ صوتی در سه بخش و PDF کامل."
       },
       "content_language": "ru",
       "sort_order": 1,
@@ -17,15 +23,18 @@
       "sections": {
         "1": {
           "ru": "О том, что предшествовало Ашуре",
-          "en": "Before Ashura"
+          "en": "Before Ashura",
+          "fa": "آنچه پیش از عاشورا گذشت"
         },
         "2": {
           "ru": "О сражении Кербелы",
-          "en": "The Battle of Karbala"
+          "en": "The Battle of Karbala",
+          "fa": "نبرد کربلا"
         },
         "3": {
           "ru": "О событиях после Кербелы",
-          "en": "After Karbala"
+          "en": "After Karbala",
+          "fa": "رویدادهای پس از کربلا"
         }
       },
       "cover_file_id": "AgACAgIAAxkDAAMLajvLoXG6VFJW_fM5FS9FXxZCV_4AAvAZaxuQpNhJrNWJJ2ag6rgBAAMCAAN5AAM8BA",

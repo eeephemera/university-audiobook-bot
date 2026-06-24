@@ -45,7 +45,8 @@ class Book(Base):
     slug: Mapped[str] = mapped_column(String(64), unique=True, index=True)
 
     title: Mapped[LocalizedText] = mapped_column(JSON, default=dict)
-    author: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # Localized like title/description: {"ru": "...", "en": "...", "fa": "..."}.
+    author: Mapped[LocalizedText] = mapped_column(JSON, default=dict)
     description: Mapped[LocalizedText] = mapped_column(JSON, default=dict)
 
     cover_file_id: Mapped[Optional[str]] = mapped_column(String(255), default=None)

@@ -40,8 +40,9 @@ def book_card(
     The signature footer is included so a forwarded card still points home.
     """
     parts = [f"📖 <b>{escape(_clip(loc(book.title, lang), _MAX_TITLE))}</b>"]
-    if book.author:
-        parts.append(f"<i>{t(lang, 'lbl_author')}: {escape(_clip(book.author, _MAX_AUTHOR))}</i>")
+    author = loc(book.author, lang)
+    if author:
+        parts.append(f"<i>{t(lang, 'lbl_author')}: {escape(_clip(author, _MAX_AUTHOR))}</i>")
 
     description = loc(book.description, lang)
     if description:

@@ -51,7 +51,7 @@ class BookRepository:
         results: list[Book] = []
         for book in (await self.session.scalars(stmt)).all():
             haystack = " ".join(
-                [*(book.title or {}).values(), book.author or ""]
+                [*(book.title or {}).values(), *(book.author or {}).values()]
             ).lower()
             if needle in haystack:
                 results.append(book)

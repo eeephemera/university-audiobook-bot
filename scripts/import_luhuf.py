@@ -49,8 +49,12 @@ PDF_FILE = "Лухуф.pdf"
 
 BOOK = {
     "slug": "luhuf-skorbi-kerbely",
-    "title": {"ru": "Лухуф. Скорби Кербелы", "en": "Al-Luhuf: The Sorrows of Karbala"},
-    "author": "Сейид Ибн Тавус",
+    "title": {
+        "ru": "Лухуф. Скорби Кербелы",
+        "en": "Al-Luhuf: The Sorrows of Karbala",
+        "fa": "لهوف — سوگ‌های کربلا",
+    },
+    "author": {"ru": "Сейид Ибн Тавус", "en": "Sayyid Ibn Tawus", "fa": "سید بن طاووس"},
     "description": {
         "ru": (
             "«Ал-Лухуф ‘аля катля ат-туфуф» Сейида Ибн Тавуса — классическое "
@@ -68,9 +72,9 @@ BOOK = {
     "content_language": "ru",
     "sort_order": 1,
     "sections": {
-        "1": {"ru": "О том, что предшествовало Ашуре", "en": "Before Ashura"},
-        "2": {"ru": "О сражении Кербелы", "en": "The Battle of Karbala"},
-        "3": {"ru": "О событиях после Кербелы", "en": "After Karbala"},
+        "1": {"ru": "О том, что предшествовало Ашуре", "en": "Before Ashura", "fa": "آنچه پیش از عاشورا گذشت"},
+        "2": {"ru": "О сражении Кербелы", "en": "The Battle of Karbala", "fa": "نبرد کربلا"},
+        "3": {"ru": "О событиях после Кербелы", "en": "After Karbala", "fa": "رویدادهای پس از کربلا"},
     },
 }
 
@@ -165,7 +169,7 @@ async def _import(items: list[tuple[int, int, str, Path]]) -> None:
                         chat_id,
                         audio=FSInputFile(path),
                         title=title or f"{section}.{number}",
-                        performer=BOOK["author"],
+                        performer=BOOK["author"]["ru"],
                     )
                     await chapters.upsert(
                         book.id,

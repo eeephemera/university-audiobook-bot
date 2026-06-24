@@ -45,6 +45,7 @@ from aiogram.types import FSInputFile
 from app.bot import create_bot
 from app.config import settings
 from app.db.base import dispose_db, init_db, session_factory
+from app.i18n import loc
 from app.repositories import BookRepository, ChapterRepository
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
@@ -120,7 +121,7 @@ async def _import_folder(bot, books, chapters, folder: Path) -> None:
             chat_id,
             audio=FSInputFile(audio),
             title=str(number),
-            performer=book.author or settings.brand_name,
+            performer=loc(book.author, settings.default_language) or settings.brand_name,
         )
         await chapters.upsert(
             book.id,

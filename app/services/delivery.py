@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import asyncio
 from html import escape
-from itertools import groupby
 
 from aiogram import Bot
 from aiogram.enums import ParseMode
@@ -42,8 +41,9 @@ def _chapter_caption(
 ) -> str:
     title = escape(_clip(loc(book.title, lang), _MAX_TITLE))
     lines = [f"🎧 <b>{title}</b>"]
-    if book.author:
-        lines.append(f"<i>{t(lang, 'lbl_author')}: {escape(_clip(book.author, _MAX_AUTHOR))}</i>")
+    author = loc(book.author, lang)
+    if author:
+        lines.append(f"<i>{t(lang, 'lbl_author')}: {escape(_clip(author, _MAX_AUTHOR))}</i>")
     if show_part:
         pl = f"<i>{t(lang, 'lbl_part')} {chapter.section}"
         if part_title:
@@ -87,8 +87,9 @@ async def send_chapter(
 def _pdf_caption(book: Book, lang: str) -> str:
     title = escape(_clip(loc(book.title, lang), _MAX_TITLE))
     lines = [f"📄 <b>{title}</b>", f"<i>{t(lang, 'lbl_pdf_version')}</i>"]
-    if book.author:
-        lines.insert(1, f"<i>{t(lang, 'lbl_author')}: {escape(_clip(book.author, _MAX_AUTHOR))}</i>")
+    author = loc(book.author, lang)
+    if author:
+        lines.insert(1, f"<i>{t(lang, 'lbl_author')}: {escape(_clip(author, _MAX_AUTHOR))}</i>")
     return "\n".join(lines)
 
 
@@ -112,40 +113,12 @@ async def _send_with_retry(make_coro):
             raise
 
 
-def _range_label(group: list[Chapter], lang: str) -> str:
-    a, b = group[0].number, group[-1].number
-    if a == b:
-        return f"{t(lang, 'lbl_chapter')} {a}"
-    return f"{t(lang, 'lbl_chapters')} {a}–{b}"
-
-
-def _album_caption(
-    book: Book,
-    group: list[Chapter],
-    lang: str,
-    *,
-    show_part: bool,
-    with_footer: bool,
-    bot_username: str,
-) -> str:
-    """Каждый альбом подписан: часть (если есть) + диапазон глав внутри него."""
-    rng = _range_label(group, lang)
-    if show_part:
-        sec = group[0].section
-        head = f"📚 <b>{t(lang, 'lbl_part')} {sec}</b>"
-        part_title = loc((book.sections or {}).get(str(sec)), lang)
-        if part_title:
-            head += f" · {escape(_clip(part_title, _MAX_TITLE))}"
-        caption = f"{head}\n🎧 {rng}"
-    else:
-        title = escape(_clip(loc(book.title, lang), _MAX_TITLE))
-        caption = f"🎧 <b>{title}</b>\n📖 {rng}"
-
-    if with_footer:
-        caption = caption_with_signature(
-            caption, lang, bot_username, payload=f"book_{book.slug}"
-        )
-    return caption
+def _entry_caption(book: Book, lang: str, bot_username: str) -> str:
+    """Caption for the entry track (chapter 1) — book title + brand footer."""
+    title = escape(_clip(loc(book.title, lang), _MAX_TITLE))
+    return caption_with_signature(
+        f"🎧 <b>{title}</b>", lang, bot_username, payload=f"book_{book.slug}"
+    )
 
 
 async def send_all_chapters(
@@ -157,14 +130,19 @@ async def send_all_chapters(
     *,
     show_part: bool = False,
 ) -> int:
-    """Send chapters as audio albums, in order, so Telegram auto-advances.
+    """Send all chapters as compact audio albums so they auto-play in order.
 
-    Albums never cross a part boundary (group by section, then chunk by 10), and
-    each album's first track is captioned with its part + chapter range. The
-    brand/link footer rides on the very first album only.
+    Telegram's player auto-advances to the ADJACENT message; on phones it goes
+    upward (the dominant client here). So we send in REVERSE: chapter 1 ends up
+    at the BOTTOM (sent last), and tapping it plays upward 1 → N. The brand
+    footer rides on that entry track. (On desktop the player goes downward, so
+    there the order is mirrored — there is no single send order correct for both
+    clients; this favours mobile.)
     """
+    if not chapters:
+        return 0
     me = await bot.me()
-    performer = (book.author or settings.brand_name)[:_META_LIMIT]
+    performer = (loc(book.author, lang) or settings.brand_name)[:_META_LIMIT]
 
     def track_title(ch: Chapter) -> str:
         title = loc(ch.title, lang)
@@ -172,32 +150,19 @@ async def send_all_chapters(
             return _clip(title, _META_LIMIT)
         return f"{ch.section}.{ch.number}" if show_part else str(ch.number)
 
-    albums: list[list[Chapter]] = []
-    for _sec, items in groupby(chapters, key=lambda c: c.section):
-        part = list(items)
-        for i in range(0, len(part), _GROUP_SIZE):
-            albums.append(part[i : i + _GROUP_SIZE])
+    entry = chapters[0]                 # chapter 1 — the tap point
+    seq = list(reversed(chapters))      # send N..1 so the bottom message is ch.1
 
     sent = 0
-    for index, group in enumerate(albums):
-        # The label goes in its OWN text message ABOVE the audios — a media-group
-        # caption renders between the 1st and 2nd track, which reads out of order.
-        header = _album_caption(
-            book, group, lang,
-            show_part=show_part, with_footer=(index == 0), bot_username=me.username,
-        )
-        await _send_with_retry(
-            lambda h=header: bot.send_message(chat_id, h, parse_mode=ParseMode.HTML)
-        )
+    for start in range(0, len(seq), _GROUP_SIZE):
+        group = seq[start : start + _GROUP_SIZE]
         if len(group) == 1:
-            # Media groups require >= 2 items; send a lone track solo.
             ch = group[0]
+            cap = _entry_caption(book, lang, me.username) if ch is entry else None
             await _send_with_retry(
-                lambda ch=ch: bot.send_audio(
-                    chat_id,
-                    audio=ch.audio_file_id,
-                    title=track_title(ch),
-                    performer=performer,
+                lambda ch=ch, cap=cap: bot.send_audio(
+                    chat_id, audio=ch.audio_file_id, title=track_title(ch),
+                    performer=performer, caption=cap, parse_mode=ParseMode.HTML,
                     protect_content=settings.protect_content,
                 )
             )
@@ -207,6 +172,8 @@ async def send_all_chapters(
                     media=ch.audio_file_id,
                     title=track_title(ch),
                     performer=performer,
+                    caption=(_entry_caption(book, lang, me.username) if ch is entry else None),
+                    parse_mode=ParseMode.HTML,
                 )
                 for ch in group
             ]
