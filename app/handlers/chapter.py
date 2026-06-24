@@ -12,6 +12,7 @@ import logging
 from html import escape
 
 from aiogram import Bot, F, Router
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.types import CallbackQuery
 
 from app.callbacks import ChapterCB
@@ -26,6 +27,12 @@ log = logging.getLogger(__name__)
 
 # Strong refs to in-flight background senders so the loop's GC can't cancel them.
 _background_tasks: set[asyncio.Task] = set()
+
+# The single "now playing" audio message per chat. We keep ONE chapter audio in
+# the chat at a time (delete the previous one before sending the next) so the
+# Telegram player has no adjacent audio to auto-jump to — navigation is explicit
+# via the Prev/Next buttons. (Lost on restart; a stale message just won't delete.)
+_now_playing: dict[int, int] = {}
 
 
 def _part_title(book, section: int, lang: str) -> str:
@@ -81,9 +88,19 @@ async def play_chapter(
 
     show_part = len(await catalog.sections_present(book.id)) > 1
     ordered_ready = [(c.section, c.number) for c in chapters if c.is_ready]
-    await send_chapter(
+    chat_id = callback.message.chat.id
+
+    # Keep only one chapter audio in the chat: drop the previous one first.
+    previous = _now_playing.pop(chat_id, None)
+    if previous is not None:
+        try:
+            await bot.delete_message(chat_id, previous)
+        except TelegramBadRequest:
+            pass
+
+    message = await send_chapter(
         bot,
-        callback.message.chat.id,
+        chat_id,
         book,
         chapter,
         lang,
@@ -91,6 +108,7 @@ async def play_chapter(
         show_part=show_part,
         part_title=_part_title(book, chapter.section, lang) if show_part else "",
     )
+    _now_playing[chat_id] = message.message_id
     if user is not None:
         await catalog.save_progress(user.id, book.id, chapter.section, chapter.number)
     await callback.answer()
