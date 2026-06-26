@@ -149,7 +149,7 @@ async def play_all(
 
     show_part = len(await catalog.sections_present(book.id)) > 1
     await callback.answer(t(lang, "playall_sending"))
-    done_kb = playall_done_keyboard(book.id, lang)
+    done_kb = playall_done_keyboard(lang)
     task = asyncio.create_task(
         _deliver_sequence(bot, callback.message.chat.id, book, ready, lang, show_part, done_kb)
     )

@@ -219,13 +219,10 @@ def only_home(lang: str) -> InlineKeyboardMarkup:
     return kb.as_markup()
 
 
-def playall_done_keyboard(book_id: int, lang: str) -> InlineKeyboardMarkup:
-    """Buttons under the 'play-all done' message: back to the chapter grid, or home."""
+def playall_done_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """Buttons under the 'play-all done' message: back to the book catalog, or home."""
     kb = InlineKeyboardBuilder()
-    kb.button(
-        text=t(lang, "btn_chapters"),
-        callback_data=ChapterCB(action="list", book_id=book_id),
-    )
+    kb.button(text=t(lang, "menu_catalog"), callback_data=MenuCB(action="catalog"))
     kb.button(text=t(lang, "menu_home"), callback_data=MenuCB(action="home"))
     kb.adjust(1)
     return kb.as_markup()
