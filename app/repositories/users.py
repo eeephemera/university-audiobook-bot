@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from datetime import datetime
+
 from aiogram.types import User as TgUser
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -48,9 +51,33 @@ class UserRepository:
         user.username = tg_user.username
         user.first_name = tg_user.first_name
         user.last_name = tg_user.last_name
+        # Force last_seen to bump every interaction (SQLAlchemy skips the UPDATE
+        # when only equal values are reassigned, so set it explicitly) — this is
+        # what makes "active users" analytics reliable.
+        user.last_seen = func.now()
         await self.session.flush()
         return user
 
     async def set_language(self, user: User, language: str) -> None:
         user.language = normalize(language)
         await self.session.flush()
+
+    # --- Analytics ---
+    async def count(self) -> int:
+        return int(await self.session.scalar(select(func.count()).select_from(User)) or 0)
+
+    async def count_created_since(self, cutoff: datetime) -> int:
+        stmt = select(func.count()).select_from(User).where(User.created_at >= cutoff)
+        return int(await self.session.scalar(stmt) or 0)
+
+    async def count_active_since(self, cutoff: datetime) -> int:
+        stmt = select(func.count()).select_from(User).where(User.last_seen >= cutoff)
+        return int(await self.session.scalar(stmt) or 0)
+
+    async def language_counts(self) -> list[tuple[str, int]]:
+        stmt = (
+            select(User.language, func.count())
+            .group_by(User.language)
+            .order_by(func.count().desc())
+        )
+        return [(lang, int(c)) for lang, c in (await self.session.execute(stmt)).all()]

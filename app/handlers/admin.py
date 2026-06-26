@@ -24,11 +24,15 @@ Implementation notes for later:
 
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
+
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.filters import IsAdmin
+from app.repositories import UserRepository
 
 router = Router(name="admin")
 
@@ -40,12 +44,37 @@ router.message.filter(IsAdmin())
 async def admin_home(message: Message) -> None:
     await message.answer(
         "🛠 <b>Admin panel</b>\n\n"
-        "<i>Reserved — not implemented in this version.</i>\n\n"
-        "<blockquote>Planned (architecture is already in place):\n"
-        "• <b>/addbook</b> — step-by-step book wizard\n"
-        "• send a PDF / audio to attach it (file_id captured automatically)\n"
-        "• <b>/publish</b> — show or hide a book\n"
-        "• <b>/reorder</b> — change catalog order\n\n"
-        "The data layer already supports all of this; only the UI is pending."
+        "• <b>/stats</b> — статистика пользователей ✅\n\n"
+        "<i>В разработке (архитектура готова):</i>\n"
+        "<blockquote>"
+        "• <b>/addbook</b> — мастер добавления книги\n"
+        "• прислать PDF / аудио для привязки (file_id ловится автоматически)\n"
+        "• <b>/publish</b> — показать/скрыть книгу\n"
+        "• <b>/reorder</b> — порядок в каталоге"
         "</blockquote>"
+    )
+
+
+@router.message(Command("stats"))
+async def stats(message: Message, session: AsyncSession) -> None:
+    users = UserRepository(session)
+    now = datetime.now(timezone.utc).replace(tzinfo=None)  # match SQLite UTC
+
+    total = await users.count()
+    active_24h = await users.count_active_since(now - timedelta(days=1))
+    active_7d = await users.count_active_since(now - timedelta(days=7))
+    new_24h = await users.count_created_since(now - timedelta(days=1))
+    new_7d = await users.count_created_since(now - timedelta(days=7))
+    new_30d = await users.count_created_since(now - timedelta(days=30))
+    langs = await users.language_counts()
+    lang_line = " · ".join(f"{lang}: {c}" for lang, c in langs) or "—"
+
+    await message.answer(
+        "📊 <b>Статистика</b>\n\n"
+        f"👥 Всего пользователей: <b>{total}</b>\n\n"
+        f"🟢 Активные\n"
+        f"   за 24ч: <b>{active_24h}</b> · за 7д: <b>{active_7d}</b>\n\n"
+        f"🆕 Новые\n"
+        f"   24ч: <b>{new_24h}</b> · 7д: <b>{new_7d}</b> · 30д: <b>{new_30d}</b>\n\n"
+        f"🌐 Языки: {lang_line}"
     )
